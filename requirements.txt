@@ -1,20 +1,17 @@
-# Core dependencies for Tap Ninja Helper (WSL Ubuntu Environment)
+# Core dependencies for Tap Ninja Helper (Windows Native Environment)
 
 # Screenshot and automation
-python-xlib>=0.33       # X11 client library (required for Linux/WSL)
-mss>=7.0.1              # Fast cross-platform screenshot tool (primary choice for WSL)
-pyscreenshot>=3.1       # Alternative screenshot tool (backup if mss has issues)
-pyautogui>=0.9.53       # For automation (not used for screenshots in WSL)
+pyautogui>=0.9.53       # For automation and screenshots on Windows
+mss>=7.0.1              # Fast cross-platform screenshot tool (alternative option)
 
 # Image processing and OCR
 pillow>=9.5.0           # For image processing before OCR
 pytesseract>=0.3.10     # Python wrapper for Tesseract OCR
-opencv-python-headless>=4.7.0.0  # Headless OpenCV (better for WSL without display)
+opencv-python>=4.7.0.0  # Full OpenCV for Windows with GUI support
 numpy>=1.24.0           # For numerical operations and data processing
 
-# GUI (must have X server configured for Windows)
-# Note: Don't install tkinter via pip; use apt: sudo apt install python3-tk
-# You can safely remove this comment once set up
+# GUI
+# Note: Tkinter comes with standard Python installation on Windows
 
 # Development tools
 pytest>=7.3.1           # For testing if needed
@@ -23,11 +20,8 @@ isort>=5.12.0           # Import sorter
 flake8>=6.0.0           # Linter
 rich>=13.3.5            # Better console output
 
-# WSL-specific system requirements (install with apt, not pip):
-# sudo apt update
-# sudo apt install -y python3-tk tesseract-ocr tesseract-ocr-eng scrot x11-utils libx11-dev libxtst-dev
-
-# X11 Configuration:
-# 1. Install an X server on Windows (VcXsrv, X410, or MobaXterm)
-# 2. Add to ~/.bashrc: export DISPLAY=:0
-# 3. Start X server on Windows with "Disable access control" checked
+# Windows-specific installation notes:
+# 1. Install Tesseract OCR for Windows from: https://github.com/UB-Mannheim/tesseract/wiki
+# 2. Add Tesseract installation directory to PATH or specify path in code:
+#    pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+# 3. Python with tkinter is included by default in standard Windows Python installations
