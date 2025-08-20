@@ -3,6 +3,7 @@
 # Screenshot and automation
 pyautogui>=0.9.53       # For automation and screenshots on Windows
 mss>=7.0.1              # Fast cross-platform screenshot tool (alternative option)
+pygetwindow>=0.0.9      # For listing and selecting windows
 
 # Image processing and OCR
 pillow>=9.5.0           # For image processing before OCR

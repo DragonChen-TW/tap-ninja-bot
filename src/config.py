@@ -12,12 +12,19 @@ from typing import Dict, Any, Optional
 DEFAULT_CONFIG = {
     "tesseract_path": r"C:\Program Files\Tesseract-OCR\tesseract.exe",
     "capture_interval": 5,  # seconds
+    "parent_area": {
+        "x1": 0,
+        "y1": 0,
+        "x2": 800,
+        "y2": 600
+    },
     "capture_area": {
         "x1": 0,
         "y1": 0,
         "x2": 300,
         "y2": 300
     },
+    "use_two_step_capture": True,  # Whether to use the two-step capture process
     "ocr_areas": []  # Will contain dictionaries with x1, y1, x2, y2, and label
 }
 
