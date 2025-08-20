@@ -1,43 +1,101 @@
-# Implementation Plan: Base Game (Tap Ninja Bot)
+# Implementation Plan: Tap Ninja Helper (WSL Ubuntu Environment)
 
-This plan provides step-by-step instructions for AI developers to implement the base game. Each step includes a manual or functional validation step to ensure correct implementation. No code or unittests are included—only clear, actionable instructions.
+This plan provides step-by-step instructions for implementing the Tap Ninja Helper application in a WSL Ubuntu environment. Each step includes clear, actionable instructions with technology integration details specific to WSL.
 
 ---
 
-## 1. Set Up Project Structure
-- **Instruction:** Create the initial project directory and subfolders for source code, assets, and documentation.
+## 1. Set Up Project Structure and WSL Environment
+- **Instruction:** Create the initial Python project directory with subfolders for source code, assets, and documentation.
+- **Tech Integration:** 
+  - Set up a virtual environment using uv package manager
+  - Install system dependencies required for WSL: `sudo apt install python3-tk tesseract-ocr`
+  - Configure X11 display server connection for GUI applications
+  - Install the initial Python dependencies from requirements.txt
 
 ## 2. Initialize Version Control
-- **Instruction:** Initialize a Git repository and add a .gitignore file for the chosen language/framework.
+- **Instruction:** Initialize a Git repository and add a .gitignore file for Python.
+- **Tech Integration:** Configure .gitignore to exclude virtual environment folders, cache files, and other Python-specific items.
 
-## 3. Define Game Loop Skeleton
-- **Instruction:** Create a main entry point with a basic game loop that can start, update, and end.
-- **Validation:** Run the game; confirm that the loop starts and exits cleanly with log messages for each phase.
+## 3. Set Up Basic Application Framework
+- **Instruction:** Create a main entry point with a basic application loop using Tkinter.
+- **Tech Integration:** 
+  - Import Tkinter for the GUI framework (using Python3-tk installed via apt)
+  - Create a main application window
+  - Set up a basic event loop
+  - Ensure proper X11 display configuration for WSL
+- **Validation:** Run the application with X server running on Windows; confirm that the window opens and closes properly.
 
-## 4. Implement Input Handling
-- **Instruction:** Add logic to detect and process user input (e.g., tap or click events).
+## 4. Implement User Settings Storage
+- **Instruction:** Create a mechanism to store and retrieve user settings between sessions.
+- **Tech Integration:** 
+  - Use JSON or SQLite for settings storage
+  - Include settings for capture area coordinates, update frequency, etc.
+- **Validation:** Verify settings persist when the application is closed and reopened.
 
-## 5. Display Basic Game UI
-- **Instruction:** Create a minimal UI showing the main game area and a score display.
+## 5. Implement Screenshot Capture
+- **Instruction:** Add functionality to capture screenshots from a specified area of the screen.
+- **Tech Integration:** 
+  - Use MSS library for fast and efficient screenshot capture in WSL
+  - Ensure proper X11 access for screen capture in WSL environment
+  - Allow capturing a specific area of the screen every 5 seconds
+  - Implement a preview of the capture area
+- **Validation:** Verify the application can capture the specified screen area correctly through X server.
 
-## 6. Add Tap Detection Logic
-- **Instruction:** Implement logic to detect valid taps/clicks within the game area and increment the score.
+## 6. Implement OCR Processing
+- **Instruction:** Add OCR functionality to extract numbers and characters from screenshot areas.
+- **Tech Integration:** 
+  - Use Tesseract OCR engine installed via apt (`sudo apt install tesseract-ocr tesseract-ocr-eng`)
+  - Use Pytesseract Python wrapper with explicit path to Tesseract executable
+  - Focus on detecting one line of numbers and characters from a small area
+  - Use Pillow (PIL) and OpenCV (headless version) for pre-processing images before OCR
+- **Validation:** Test OCR accuracy with sample screenshots containing typical game numbers.
 
-## 7. Implement Score Tracking
-- **Instruction:** Store and update the player's score during gameplay.
+## 7. Create Area Selection UI
+- **Instruction:** Implement UI for users to select the capture area and areas for OCR processing.
+- **Tech Integration:** 
+  - Use Tkinter Canvas for drawing selection rectangles
+  - Store coordinates in user settings
+- **Validation:** Verify users can select and save areas for monitoring.
 
-## 8. Add Game Over Condition
-- **Instruction:** Define a simple game over condition (e.g., timer runs out or a set number of taps).
-- **Validation:** Play until the condition is met; verify the game ends and displays a game over message.
+## 8. Implement Basic Calculations
+- **Instruction:** Add logic to process OCR data and perform simple calculations.
+- **Tech Integration:**
+  - Parse OCR output to extract numerical values
+  - Calculate rates and estimations based on time differences
+- **Validation:** Verify calculations based on sample data.
 
-## 9. Implement Restart Mechanism
-- **Instruction:** Allow the player to restart the game from the game over screen.
+## 9. Build Main Application Dashboard
+- **Instruction:** Create the primary UI that displays captured data and calculations.
+- **Tech Integration:**
+  - Use Tkinter frames, labels, and other widgets to create a clean interface
+  - Implement real-time updates of the dashboard
+- **Validation:** Verify the dashboard properly displays and updates all relevant information.
 
-## 10. Basic Logging and Error Handling
-- **Instruction:** Add logging for key events and implement basic error handling for user actions.
+## 10. Implement Error Handling and Logging
+- **Instruction:** Add robust error handling for common failure scenarios.
+- **Tech Integration:**
+  - Use Python's logging module with Rich for better console output
+  - Handle OCR failures, screenshot errors, and calculation issues
+  - Handle WSL-specific errors like X server connection failures
+  - Provide user feedback for errors
+- **Validation:** Test error scenarios to ensure the application handles them gracefully.
+
+## 11. WSL-Specific Testing
+- **Instruction:** Create a test script to verify WSL environment configuration.
+- **Tech Integration:**
+  - Test X server connection
+  - Verify screenshot capabilities in WSL
+  - Confirm Tesseract OCR works correctly
+  - Check all dependencies are properly installed
+- **Validation:** Run the test script and verify all components are working correctly.
 
 ---
 
-**End of Base Game Implementation Plan**
+**End of Tap Ninja Helper Implementation Plan**
 
-*Note: No unittests are required for this implementation plan. Only a few key manual validation steps are included.*
+*Note: No unit tests are required for this implementation plan. The application should be validated through manual testing of each component.*
+
+*WSL Environment Notes:*
+1. *Always ensure X server is running on Windows before starting the application*
+2. *If screenshot functionality fails, try using alternative methods (MSS or pyscreenshot)*
+3. *For Tesseract issues, verify the path is correctly configured in the code*
