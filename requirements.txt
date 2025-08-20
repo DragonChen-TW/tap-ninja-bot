@@ -3,8 +3,8 @@
 # Screenshot and automation
 python-xlib>=0.33       # X11 client library (required for Linux/WSL)
 mss>=7.0.1              # Fast cross-platform screenshot tool (primary choice for WSL)
+pyscreenshot>=3.1       # Alternative screenshot tool (backup if mss has issues)
 pyautogui>=0.9.53       # For automation (not used for screenshots in WSL)
-# pyscreenshot>=3.1     # Alternative screenshot tool (backup if mss has issues)
 
 # Image processing and OCR
 pillow>=9.5.0           # For image processing before OCR
